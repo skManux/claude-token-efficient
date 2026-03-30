@@ -13,6 +13,17 @@ The same 5 prompts were run twice:
 
 Each test targets a specific fix from community research.
 
+## Methodology Disclaimer
+
+- Sample size: 5 prompts - directional indicator only, not a statistically controlled study
+- No repeated runs or variance controls applied
+- Claude's output length varies naturally between identical prompts
+- The 63% figure is an average across these specific prompts - real-world results vary by task type
+- Output token savings are measured on the response side only
+- The CLAUDE.md file itself loads as input tokens on every message - net savings only occur when output volume is high enough to offset that persistent input cost
+- Short queries and low-volume casual use will see a net token increase, not a reduction
+- Best results on output-heavy repeated tasks: agent pipelines, code generation loops, automation bots
+
 ---
 
 ## T1 - Verbose Output / Preamble / Hollow Closing

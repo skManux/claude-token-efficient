@@ -34,6 +34,23 @@ your-project/
 
 ---
 
+## When This Helps vs When It Doesn't
+
+**This file works best for:**
+- Automation pipelines with high output volume (resume bots, agent loops, code generation)
+- Repeated structured tasks where Claude's default verbosity compounds across hundreds of calls
+- Teams who need consistent, parseable output format across sessions
+
+**This file is not worth it for:**
+- Single short queries - the file loads into context on every message, so on low-output exchanges it is a net token increase
+- Casual one-off use - the overhead doesn't pay off at low volume
+- Fixing deep failure modes like hallucinated implementations or architectural drift - those require hooks, gates, and mechanical enforcement
+
+**The honest trade-off:**
+The CLAUDE.md file itself consumes input tokens on every message. The savings come from reduced output tokens. The net is only positive when output volume is high enough to offset the persistent input cost. At low usage it costs more than it saves.
+
+---
+
 ## Benchmark Results
 
 Same 5 prompts. Run without CLAUDE.md (baseline) then with CLAUDE.md (optimized).
@@ -46,7 +63,9 @@ Same 5 prompts. Run without CLAUDE.md (baseline) then with CLAUDE.md (optimized)
 | Hallucination correction | 55 words | 20 words | 64% |
 | **Total** | **465 words** | **170 words** | **63%** |
 
-**~384 tokens saved per 4 prompts. Same information. Zero signal loss.**
+**~384 output tokens saved per 4 prompts. Same information. Zero signal loss.**
+
+> **Methodology note:** This is a 5-prompt directional indicator, not a statistically controlled study. Claude's output length varies naturally between identical prompts. No variance controls or repeated runs were applied. Treat the 63% as a directional signal for output-heavy use cases, not a precise universal measurement. The CLAUDE.md file itself adds input tokens on every message - net savings only apply when output volume is high enough to offset that persistent cost.
 
 ### At Scale
 
