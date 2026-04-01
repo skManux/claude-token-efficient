@@ -153,6 +153,21 @@ Pick the base file + a profile, or use the base alone.
 | `profiles/CLAUDE.agents.md` | Automation pipelines, multi-agent systems |
 | `profiles/CLAUDE.analysis.md` | Data analysis, research, reporting |
 
+### Versioned Configuration Sets
+
+The `profiles/` directory also contains three versioned configuration sets representing different optimization strategies. Pick the one that matches your workflow:
+
+| Version | Strategy | Tool Budget | Best For |
+|---------|----------|-------------|----------|
+| `J-drona23-v5` | Multi-file structured | 50 calls | Complex projects needing detailed workflow rules and agent definitions |
+| `K-drona23-v6` | One-shot execution | 50 calls | Tasks that should complete in a single pass with minimal iteration |
+| `M-drona23-v8` | Ultra-lean minimum-turn | 20 calls | Cost-sensitive pipelines where every tool call counts |
+
+**How to choose:**
+- Start with **v5** if you need structured multi-step workflows with clear agent protocols
+- Use **v6** if you want faster execution with strict "done means done" rules (no polishing passing code)
+- Use **v8** only if you need maximum cost efficiency and your tasks are simple enough for 20 tool calls
+
 ---
 
 ## How to Use
