@@ -1,0 +1,121 @@
+# AutoModerator Configuration for claude-token-efficient
+# Deploy in subreddit settings > Moderation tools > Automoderator
+
+---
+# REMOVE: Low-effort negative comments (no substance)
+- type: comment
+  body (regex):
+    - "^(this sucks|trash|worthless|useless).*$"
+    - "^(waste of time|doesn't work|broken)$"
+  action: remove
+  modmail_reason: "Low-effort negativity without substance"
+
+---
+# REMOVE: Spam and self-promotion
+- type: comment
+  body (regex):
+    - "check out my (discord|telegram|course|paid)"
+    - "buy my|sign up for my|join my (group|discord|community)"
+    - "http(?:s)?://.*(?:etsy|fiverr|udemy|clickbank)"
+  action: remove
+  modmail_reason: "Self-promotion or spam"
+
+---
+# REMOVE: Off-topic trolling patterns
+- type: comment
+  body (regex):
+    - "^(only an idiot|you're dumb|you're stupid)"
+    - "^this is (bullshit|garbage|complete waste)"
+  action: remove
+  modmail_reason: "Toxic/trolling behavior"
+
+---
+# REMOVE: Short low-effort negative comments (< 20 chars, negative tone)
+- type: comment
+  body_length: "< 20"
+  body (regex):
+    - "^(no|nope|wrong|bad|fail|lol no|nah)"
+  action: remove
+  modmail_reason: "Low-effort, non-constructive comment"
+
+---
+# APPROVE: Constructive criticism (specific, detailed, helpful tone)
+- type: comment
+  body (regex):
+    - "(?i)(tried this|tested|ran benchmark|here's (what|my) issue|found (a bug|an issue))"
+    - "(?i)(great idea|good point|well done|nice work|thanks for)"
+    - "(?i)(question:|why|how|can you|could you explain)"
+  action: approve
+
+---
+# APPROVE: Bug reports and detailed feedback
+- type: comment
+  body (regex):
+    - "(?i)(bug|error|doesn't work|broke|failed|when i)"
+    - "(?i)(steps to reproduce|expected|actual result)"
+  action: approve
+
+---
+# APPROVE: Comments with links to evidence/code
+- type: comment
+  body (regex):
+    - "(?i)https?://(github|gist|pastebin|reddit\.com/r)"
+  action: approve
+
+---
+# REMOVE: Duplicate/repetitive criticism (same point multiple times)
+- type: comment
+  reports: ">= 3"
+  report_reason: "^(spam|not helpful|low effort)$"
+  action: remove
+  modmail_reason: "Reported as spam/unhelpful by community"
+
+---
+# FLAG FOR REVIEW: Potentially controversial but substantive
+- type: comment
+  body (regex):
+    - "(?i)(doesn't work|broken|fails|problem)"
+  body_length: ">= 50"
+  action: filter
+  modmail_reason: "Potential issue report - review for legitimacy"
+
+---
+# AUTO-REPLY: Encouraging detailed feedback
+- type: comment
+  body (regex):
+    - "^(this doesn't work|doesn't help|not useful)"
+  action: remove
+  comment: |
+    Thanks for feedback! Help us improve by providing:
+    - What you expected to happen
+    - What actually happened
+    - Steps to reproduce (if it's a bug)
+
+    We're tracking issues at: github.com/drona23/claude-token-efficient/issues
+
+---
+# REMOVE: Misinformation about pricing/savings claims
+- type: comment
+  body (regex):
+    - "(?i)(this costs money|you have to pay|scam|waste of money)"
+    - "(?i)(doesn't actually save|false claim|misleading)"
+  body_length: "< 50"
+  action: remove
+  modmail_reason: "Misinformation (no evidence provided)"
+
+---
+# APPROVE: Detailed price/cost discussion with substance
+- type: comment
+  body (regex):
+    - "(?i)(costs money|pricing|price|expensive)"
+  body_length: ">= 75"
+  action: approve
+
+---
+# LOCK THREAD: If negativity ratio gets high
+- type: comment
+  reports: ">= 5"
+  report_reason: "(?i)(spam|trolling|harassment)"
+  action: lock
+  modmail_reason: "Thread locked: too many reports"
+
