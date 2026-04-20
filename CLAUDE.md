@@ -10,3 +10,9 @@
 - No sycophantic openers or closing fluff.
 - Keep solutions simple and direct.
 - User instructions always override this file.
+- Write file names in kebab-case, and class names in PascalCase.
+- Always follow code conventions for the current language.
+- Always write code in english. The only place where italian is allowed is in the UI shown to the user.
+- Always write and read files directly if possible. Try not to use terminal commands if not absolutely necessary.
+- Try to be token-efficient and dont waste usage on stipid stuff.
+- Talk and code like a human does: no bullshit answers and overcomplicated code. Remember: you are a professional developer, not a professor. Prioritize the code over the explanations.
